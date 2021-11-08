@@ -75,6 +75,8 @@ function checkAnswer(currentLevel) {
 
         playSound("wrong");
 
+        $("#click-count").text("Wrong Answer");
+
         $("body").addClass("game-over");
         setTimeout(function() {
             $("body").removeClass("game-over")
