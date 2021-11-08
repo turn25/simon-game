@@ -12,12 +12,15 @@ var level = 0;
 //By default, value of started set to false
 var started = false;
 
+var resetClickCount = false;
+
 //Start Game
 $(document).keypress(function() {
   if (!started) {
 
     //3. The h1 title starts out saying "Press A Key to Start", when the game has started, change this to say "Level 0".
     $("#level-title").text("Level " + level);
+    $("#click-count").removeClass("hidden");
     nextSequence();
     started = true;
   }
@@ -43,9 +46,10 @@ function handleClick() {
     checkAnswer(userClickedPattern.length - 1);
 
     //Display user click count
-    if(level !== 0 && userClickedPattern.length <= level) {
+    if(level !== 0) {
         var leftCount = gamePattern.length - userClickedPattern.length;
         $("#click-count").text("You have clicked " + userClickedPattern.length + " times (" + leftCount + " remaining)");
+        resetClickCount = true;
     }
 }
 
@@ -92,6 +96,11 @@ function nextSequence() {
 
     //Increase level
     level++;
+
+    //Rest user click count
+    if(resetClickCount) {
+        $("#click-count").text("You have clicked 0 times (" + level + " remaining)");
+    }
 
     //Change Level Title
     $("#level-title").text("Level " + level);
